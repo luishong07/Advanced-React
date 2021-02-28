@@ -1,7 +1,10 @@
-export default function IndexPage(){
+ export default function IndexPage(){
     return(
-        <div>
-            Hello there 
-        </div>
+        <>
+            <p>Hello there </p>
+            <code>var</code>
+            <p>I am a child component</p>
+        </>
     )
 }
+
