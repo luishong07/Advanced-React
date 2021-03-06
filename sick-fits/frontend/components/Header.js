@@ -28,7 +28,7 @@ const HeaderStyles = styled.header`
     }
 
     .sub-bar{
-        border-bottom: 1px solid var(--black, black);
+        border-bottom: 1px solid var(--black, green);
         display: grid;
         grid-template-columns: auto 1fr;    
 
