@@ -28,7 +28,7 @@ const HeaderStyles = styled.header`
     }
 
     .sub-bar{
-        border-bottom: 1px solid var(--black, green);
+        border-bottom: 1px solid var(--black, gre en);
         display: grid;
         grid-template-columns: auto 1fr;    
 
@@ -44,12 +44,11 @@ export default function Header(){
                         Sick Fits
                     </Link>
                 </Logo>
+                <Nav />
             </div>
-
             <div className = "sub-bar">
                 <p>Search</p>
             </div>
-            <Nav />
         </HeaderStyles>
     )
 }
