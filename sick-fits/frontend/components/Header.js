@@ -24,7 +24,7 @@ const HeaderStyles = styled.header`
         display: grid;
         grid-template-columns: auto 1fr;    
         justify-content: space-between;
-        align-items: center;
+        align-items: stretch;
     }
 
     .sub-bar{
