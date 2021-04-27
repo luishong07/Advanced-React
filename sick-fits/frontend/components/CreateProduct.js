@@ -1,5 +1,38 @@
+import { useMutation } from "@apollo/client"
 import useForm from "../lib/useForm"
 import Form from "./styles/Form"
+import gql from "graphql-tag"
+import DisplayError from "./ErrorMessage"
+import {ALL_PRODUCTS_QUERY} from './Products'
+import Router from 'next/router'
+
+const CREATE_PRODUCT_MUTATION = gql`
+    mutation CREATE_PRODUCT_MUTATION(
+        # which variables are getting passed in and what type are they?
+        $name: String!
+        $description: String!
+        $price: Int!
+        $image: Upload 
+    ){
+        createProduct(data:{
+            name: $name,
+            description: $description,
+            price: $price,
+            status: "AVAILABLE"
+            photo: {
+                create: {
+                    image: $image
+                    altText: $name
+                }
+            }
+        }){
+            id 
+            description
+            price
+            name
+        }
+    }
+`
 
 export default function CreateProduct(){
     const {inputs, handleChange, clearForm, resetForm} = useForm({
@@ -8,12 +41,29 @@ export default function CreateProduct(){
         price: 1000,
         description: "these are the best shoes"
     })
+
+    const [createProduct, {loading, error, data}] = useMutation(
+        CREATE_PRODUCT_MUTATION, 
+        {
+            variables: inputs,
+            refetchQueries: [{query: ALL_PRODUCTS_QUERY}]
+        }
+    )
+    // console.log(createProduct)
+
     return(
-        <Form onSubmit = {(e) => {
+        <Form onSubmit = { async (e) => {
             e.preventDefault()
-            console.log(inputs)
+            //submit inputs fiels to backend
+            const res = await createProduct()
+            clearForm()
+            //go to that product page
+            Router.push({
+                pathname: `/product/${res.data.createProduct.id}`
+            })
         }}>
-            <fieldset>
+            <DisplayError error = {error}/>
+            <fieldset disabled = {loading} aria-busy = {loading}>
             <label htmlFor = "image">
                     Image
                     <input 
