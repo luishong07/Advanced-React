@@ -18,7 +18,7 @@ export const ALL_PRODUCTS_QUERY = gql`
                 }
             }
         }
-    }
+    }   
 `
 
 const ProductsListStyles = styled.div`
@@ -47,4 +47,6 @@ export default function Products({page}){
         </div>
     )
 }
+
+
 
